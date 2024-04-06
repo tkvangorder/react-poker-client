@@ -1,5 +1,5 @@
 import { FormEvent, useRef, useState } from "react";
-import { User, AuthenticatedUser } from "./user";
+import { User, AuthenticatedUser } from "./User";
 
 interface RegisterUserRequest {
   user: User;
