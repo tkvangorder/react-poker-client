@@ -1,15 +1,16 @@
 import NavigationBar from "./components/NavigationBar";
 import TitlePage from "./components/TitlePage";
+import LoginForm from "./components/user/LoginForm";
 import RegisterUserForm from "./components/user/RegisterUserForm";
 import { AuthenticatedUser } from "./components/user/User";
 
 function App() {
-  const onRegister = (authenticatedUser: AuthenticatedUser) => {
+  const onLogin = (authenticatedUser: AuthenticatedUser) => {
     console.log(authenticatedUser);
   };
 
   return (
-    <RegisterUserForm onRegister={onRegister} />
+    <LoginForm onLogin={onLogin} />
     // <div className="flex flex-col h-screen">
     //   <NavigationBar />
     //   <div className="flex-grow">
