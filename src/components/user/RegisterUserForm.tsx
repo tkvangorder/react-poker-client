@@ -10,13 +10,27 @@ interface Props {
   onRegister: (authenticatedUser: AuthenticatedUser) => void;
 }
 const RegisterUserForm = (props: Props) => {
-  const username = useRef<HTMLInputElement>(null);
-  const password = useRef<HTMLInputElement>(null);
-  const confirmPassword = useRef<HTMLInputElement>(null);
-  const name = useRef<HTMLInputElement>(null);
-  const email = useRef<HTMLInputElement>(null);
-  const phone = useRef<HTMLInputElement>(null);
-  const passcode = useRef<HTMLInputElement>(null);
+  // Could also use useRef to get the input values. This is more performant than using state but kind of ugly.
+  // const loginIdRef = useRef<HTMLInputElement>(null);
+  // const passwordRef = useRef<HTMLInputElement>(null);
+  // const confirmPasswordRef = useRef<HTMLInputElement>(null);
+  // const emailRef = useRef<HTMLInputElement>(null);
+  // const nameRef = useRef<HTMLInputElement>(null);
+  // const phoneRef = useRef<HTMLInputElement>(null);
+  // const passcodeRef = useRef<HTMLInputElement>(null);
+  //
+  // and then in input elements, use ref={loginIdRef} etc.
+  // finally in handleSubmit, use loginIdRef.current?.value to get the form values.
+
+  const [user, setUser] = useState({
+    loginId: "",
+    password: "",
+    confirmPassword: "",
+    email: "",
+    name: "",
+    phone: "",
+  });
+  const [passcode, setPasscode] = useState("");
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -26,11 +40,7 @@ const RegisterUserForm = (props: Props) => {
     // onRegister(token);
     const authenticatedUser: AuthenticatedUser = {
       user: {
-        loginId: "snowtoad",
-        password: "yo yo yo",
-        email: "frozen@peas.com",
-        name: "Snow Toad",
-        phone: "123-456-7890",
+        ...user,
       },
       jwt: "token",
     };
@@ -57,8 +67,10 @@ const RegisterUserForm = (props: Props) => {
           <input
             className="shadow col-span-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="username"
+            value={user.loginId}
             type="text"
             placeholder="Username"
+            onChange={(e) => setUser({ ...user, loginId: e.target.value })}
           />
           <label
             className="block text-gray-700 text-sm font-bold mb-2 text-right"
@@ -69,8 +81,10 @@ const RegisterUserForm = (props: Props) => {
           <input
             className="shadow col-span-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="password"
+            value={user.password}
             type="password"
             placeholder="Password"
+            onChange={(e) => setUser({ ...user, password: e.target.value })}
           />
           <label
             className="block text-gray-700 text-sm font-bold mb-2 whitespace-nowrap text-right"
@@ -81,8 +95,12 @@ const RegisterUserForm = (props: Props) => {
           <input
             className="shadow col-span-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="confirmPassword"
+            value={user.confirmPassword}
             type="password"
             placeholder="Confirm Password"
+            onChange={(e) =>
+              setUser({ ...user, confirmPassword: e.target.value })
+            }
           />
           <label
             className="block text-gray-700 text-sm font-bold mb-2 text-right"
@@ -93,8 +111,10 @@ const RegisterUserForm = (props: Props) => {
           <input
             className="shadow col-span-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="name"
+            value={user.name}
             type="text"
             placeholder="John Doe"
+            onChange={(e) => setUser({ ...user, name: e.target.value })}
           />
           <label
             className="block text-gray-700 text-sm font-bold mb-2 text-right"
@@ -105,8 +125,10 @@ const RegisterUserForm = (props: Props) => {
           <input
             className="shadow col-span-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="email"
+            value={user.email}
             type="email"
             placeholder="Email"
+            onChange={(e) => setUser({ ...user, email: e.target.value })}
           />
           <label
             className="block text-gray-700 text-sm font-bold mb-2 text-right"
@@ -117,8 +139,10 @@ const RegisterUserForm = (props: Props) => {
           <input
             className="shadow col-span-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="phone"
+            value={user.phone}
             type="phone"
             placeholder="(xxx) xxx-xxxx"
+            onChange={(e) => setUser({ ...user, phone: e.target.value })}
           />
           <label
             className="block text-gray-700 text-sm font-bold mb-2 text-right"
@@ -129,8 +153,10 @@ const RegisterUserForm = (props: Props) => {
           <input
             className="shadow col-span-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
             id="passcode"
+            value={passcode}
             type="password"
             placeholder="Passcode"
+            onChange={(e) => setPasscode(e.target.value)}
           />
         </div>
         <hr className="mb-4 border-t-2 border-gray-200" />

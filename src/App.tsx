@@ -5,7 +5,7 @@ import { AuthenticatedUser } from "./components/user/User";
 
 function App() {
   const onRegister = (authenticatedUser: AuthenticatedUser) => {
-    console.log(authenticatedUser.user.name + " has been registered");
+    console.log(authenticatedUser);
   };
 
   return (
