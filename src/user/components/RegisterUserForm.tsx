@@ -1,6 +1,5 @@
-import { FormEvent, useRef } from "react";
 import { FieldValues, useForm } from "react-hook-form";
-import { User, AuthenticatedUser } from "./User";
+import { User, AuthenticatedUser } from "../User";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 

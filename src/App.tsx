@@ -1,8 +1,8 @@
 import NavigationBar from "./components/NavigationBar";
 import TitlePage from "./components/TitlePage";
-import LoginForm from "./components/user/LoginForm";
-import RegisterUserForm from "./components/user/RegisterUserForm";
-import { AuthenticatedUser } from "./components/user/User";
+import { LoginForm } from "./user";
+import RegisterUserForm from "./user/components/RegisterUserForm";
+import { AuthenticatedUser } from "./user/User";
 
 function App() {
   const onLogin = (authenticatedUser: AuthenticatedUser) => {
