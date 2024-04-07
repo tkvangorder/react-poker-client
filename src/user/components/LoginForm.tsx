@@ -1,5 +1,5 @@
 import { FieldValues, useForm } from "react-hook-form";
-import { User, AuthenticatedUser } from "../User";
+import userSerivce, { AuthenticatedUser, User } from "../UserService";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -19,18 +19,26 @@ const LoginForm = (props: Props) => {
   // and then nested errors from the formState object
   const {
     register,
+    setError,
+    clearErrors,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema), mode: "onSubmit" });
 
   const onSubmit = (data: FieldValues) => {
-    const user: AuthenticatedUser = {
-      user: {
-        ...(data as User),
-      },
-      jwt: "nothing yes",
-    };
-    props.onLogin(user);
+    userSerivce
+      .login(data.username, data.password)
+      .then((response) => {
+        props.onLogin(response.data);
+        clearErrors("password");
+      })
+      .catch((error) => {
+        setError("password", {
+          type: "manual",
+          message: "Invalid Credentials",
+        });
+        return;
+      });
   };
 
   return (

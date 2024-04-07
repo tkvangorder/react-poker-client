@@ -1,4 +1,4 @@
-import { User, AuthenticatedUser } from "./User";
+import userService, { RegisterUserRequest, User, AuthenticatedUser} from "./UserService";
 import LoginForm from "./components/LoginForm";
 import RegisterUserForm from "./components/RegisterUserForm";
 

@@ -1,5 +1,5 @@
 import { FieldValues, useForm } from "react-hook-form";
-import { User, AuthenticatedUser } from "../User";
+import userService, { AuthenticatedUser, User } from "../UserService";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -9,7 +9,7 @@ interface Props {
 
 // We use Zod to define a schema for the form data and then infer the FormData type from the schema
 const schema = z.object({
-  username: z.string().min(1, { message: "Username is required" }),
+  loginId: z.string().min(1, { message: "Username is required" }),
   password: z
     .string()
     .min(8, { message: "Password must be at least 8 characters" }),
@@ -19,7 +19,7 @@ const schema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
   email: z.string().min(1, { message: "Email is required" }),
   phone: z.string().min(1, { message: "Phone is required" }),
-  passcode: z.string().min(1, { message: "Passcode is required" }),
+  serverPasscode: z.string().min(1, { message: "Passcode is required" }),
 });
 type FormData = z.infer<typeof schema>;
 
@@ -44,13 +44,23 @@ const RegisterUserForm = (props: Props) => {
     } else {
       clearErrors("confirmPassword");
     }
-    const user: AuthenticatedUser = {
-      user: {
-        ...(data as User),
-      },
-      jwt: "nothing yes",
-    };
-    props.onRegister(user);
+
+    userService
+      .registerUser({
+        user: { ...(data as User) },
+        serverPasscode: data.serverPasscode,
+      })
+      .then((response) => {
+        props.onRegister(response.data);
+        clearErrors("serverPasscode");
+      })
+      .catch((error) => {
+        setError("serverPasscode", {
+          type: "manual",
+          message: error.response.data.message,
+        });
+        return;
+      });
   };
 
   return (
@@ -75,11 +85,11 @@ const RegisterUserForm = (props: Props) => {
             id="username"
             type="text"
             placeholder="Username"
-            {...register("username")}
+            {...register("loginId")}
           />
-          {errors.username && (
+          {errors.loginId && (
             <p className="col-start-2 col-span-2 text-red-600">
-              {errors.username.message}
+              {errors.loginId.message}
             </p>
           )}
           <label
@@ -183,11 +193,11 @@ const RegisterUserForm = (props: Props) => {
             id="passcode"
             type="password"
             placeholder="Passcode"
-            {...register("passcode")}
+            {...register("serverPasscode")}
           />
-          {errors.passcode && (
+          {errors.serverPasscode && (
             <p className="col-start-2 col-span-2 text-red-600">
-              {errors.passcode.message}
+              {errors.serverPasscode.message}
             </p>
           )}
         </div>
