@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 interface Props {
   onLogin: (authenticatedUser: AuthenticatedUser) => void;
+  onCancel: () => void;
 }
 
 // We use Zod to define a schema for the form data and then infer the FormData type from the schema
@@ -91,6 +92,12 @@ const LoginForm = (props: Props) => {
         </div>
         <hr className="mb-4 border-t-2 border-gray-200" />
         <div className="flex items-center justify-center">
+        <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            onClick={props.onCancel}
+          >
+            Cancel
+          </button>
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
