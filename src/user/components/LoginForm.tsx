@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 interface Props {
   onLogin: (authenticatedUser: AuthenticatedUser) => void;
-  onCancel: () => void;
+  onClose: () => void;
 }
 
 // We use Zod to define a schema for the form data and then infer the FormData type from the schema
@@ -32,6 +32,7 @@ const LoginForm = (props: Props) => {
       .then((response) => {
         props.onLogin(response.data);
         clearErrors("password");
+        props.onClose();
       })
       .catch((error) => {
         setError("password", {
@@ -43,70 +44,49 @@ const LoginForm = (props: Props) => {
   };
 
   return (
-    <div className="flex justify-center items-center bg-gray-200">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-      >
-        <h1 className="mb-4 text-lg font-semibold text-gray-700 text-center">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="bg-transparent shadow-md rounded px-8 pt-6 pb-8"
+    >
+      <h1 className="mb-4 text-3xl font-bold text-center">Login</h1>
+      <hr className="mb-4 border-t-2 border-primary" />
+      <div className="mb-4 grid grid-cols-3 gap-2 items-center">
+        <label className="label block text-right" htmlFor="username">
+          Username
+        </label>
+        <input
+          className="input input-primary col-span-2 w-full max-w-xs"
+          id="username"
+          type="text"
+          placeholder="Username"
+          {...register("username")}
+        />
+        <label className="label block text-right" htmlFor="password">
+          Password
+        </label>
+        <input
+          className="input input-primary col-span-2 w-full max-w-xs"
+          id="password"
+          type="password"
+          placeholder="Password"
+          {...register("password")}
+        />
+        {errors.password && (
+          <p className="col-start-2 col-span-2 bg-error pl-4 text-error-content rounded-md">
+            {errors.password.message}
+          </p>
+        )}
+      </div>
+      <hr className="mb-4 border-t-2 border-primary" />
+      <div className="flex items-center justify-center gap-2">
+        <button className="btn btn-secondary" onClick={props.onClose}>
+          Cancel
+        </button>
+        <button className="btn btn-primary" type="submit">
           Login
-        </h1>
-        <hr className="mb-4 border-t-2 border-gray-200" />
-        <div className="mb-4 grid grid-cols-3 gap-2 items-center">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2 text-right"
-            htmlFor="username"
-          >
-            Username
-          </label>
-          <input
-            className="shadow col-span-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="username"
-            type="text"
-            placeholder="Username"
-            {...register("username")}
-          />
-          {errors.username && (
-            <p className="col-start-2 col-span-2 text-red-600">
-              {errors.username.message}
-            </p>
-          )}
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2 text-right"
-            htmlFor="password"
-          >
-            Password
-          </label>
-          <input
-            className="shadow col-span-2 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="password"
-            type="password"
-            placeholder="Password"
-            {...register("password")}
-          />
-          {errors.password && (
-            <p className="col-start-2 col-span-2 text-red-600">
-              {errors.password.message}
-            </p>
-          )}
-        </div>
-        <hr className="mb-4 border-t-2 border-gray-200" />
-        <div className="flex items-center justify-center">
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            onClick={props.onCancel}
-          >
-            Cancel
-          </button>
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="submit"
-          >
-            Login
-          </button>
-        </div>
-      </form>
-    </div>
+        </button>
+      </div>
+    </form>
   );
 };
 
