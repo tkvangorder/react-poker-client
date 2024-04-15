@@ -83,7 +83,7 @@ const RegisterUserForm = (props: Props) => {
           {...register("loginId")}
         />
         {errors.loginId && (
-          <p className="col-start-2 col-span-2 bg-error pl-4 text-error-content rounded-md">
+          <p className="col-start-2 col-span-2 bg-error pl-2 pr-2 text-error-content rounded-md">
             {errors.loginId.message}
           </p>
         )}
@@ -98,7 +98,7 @@ const RegisterUserForm = (props: Props) => {
           {...register("password")}
         />
         {errors.password && (
-          <p className="col-start-2 col-span-2 bg-error pl-4 text-error-content rounded-md">
+          <p className="col-start-2 col-span-2 bg-error pl-2 pr-2 text-error-content rounded-md">
             {errors.password.message}
           </p>
         )}
@@ -113,7 +113,7 @@ const RegisterUserForm = (props: Props) => {
           {...register("confirmPassword")}
         />
         {errors.confirmPassword && (
-          <p className="col-start-2 col-span-2 bg-error pl-4 text-error-content rounded-md">
+          <p className="col-start-2 col-span-2 bg-error pl-2 pr-2 text-error-content rounded-md">
             {errors.confirmPassword.message}
           </p>
         )}
@@ -128,7 +128,7 @@ const RegisterUserForm = (props: Props) => {
           {...register("name")}
         />
         {errors.name && (
-          <p className="col-start-2 col-span-2 bg-error pl-4 text-error-content rounded-md">
+          <p className="col-start-2 col-span-2 bg-error pl-2 pr-2 text-error-content rounded-md">
             {errors.name.message}
           </p>
         )}
@@ -143,7 +143,7 @@ const RegisterUserForm = (props: Props) => {
           {...register("email")}
         />
         {errors.email && (
-          <p className="col-start-2 col-span-2 bg-error pl-4 text-error-content rounded-md">
+          <p className="col-start-2 col-span-2 bg-error pl-2 pr-2 text-error-content rounded-md">
             {errors.email.message}
           </p>
         )}
@@ -158,7 +158,7 @@ const RegisterUserForm = (props: Props) => {
           {...register("phone")}
         />
         {errors.phone && (
-          <p className="col-start-2 col-span-2 bg-error pl-4 text-error-content rounded-md">
+          <p className="col-start-2 col-span-2 bg-error pl-2 pr-2 text-error-content rounded-md">
             {errors.phone.message}
           </p>
         )}
@@ -173,7 +173,7 @@ const RegisterUserForm = (props: Props) => {
           {...register("serverPasscode")}
         />
         {errors.serverPasscode && (
-          <p className="col-start-2 col-span-2 bg-error pl-4 text-error-content rounded-md">
+          <p className="col-start-2 col-span-2 bg-error pl-2 pr-2 text-error-content rounded-md">
             {errors.serverPasscode.message}
           </p>
         )}
